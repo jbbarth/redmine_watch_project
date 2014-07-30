@@ -6,6 +6,7 @@ Redmine::Plugin.register :redmine_watch_project do
   url 'https://github.com/jbbarth/redmine_watch_project'
   author_url 'jeanbaptiste.barth@gmail.com'
   requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.1'
+  requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
 end
 
 Rails.application.config.to_prepare do
