@@ -8,7 +8,7 @@ class WatchProjectController < ApplicationController
     @project.save
     #watch all open issues on project
     issue_ids = @project.issues.open.map(&:id)
-    already_watched = Watcher.where(:watchable_type => "Issue", :watchable_id => issue_ids).pluck(:id)
+    already_watched = Watcher.where(:watchable_type => "Issue", :watchable_id => issue_ids, :user_id => User.current.id).pluck(:id)
     (issue_ids - already_watched).each do |id|
       Watcher.create(:watchable_type => "Issue",
                      :watchable_id   => id,
