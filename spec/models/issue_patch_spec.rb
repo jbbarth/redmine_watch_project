@@ -1,4 +1,4 @@
-require File.expand_path('../../spec_helper', __FILE__)
+require "spec_helper"
 
 describe Issue do
   fixtures :users, :roles, :projects, :projects_trackers, :members, :member_roles, :issues, :issue_statuses, :trackers, :enumerations, :custom_fields, :enabled_modules

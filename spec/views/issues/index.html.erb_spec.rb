@@ -1,4 +1,4 @@
-require_relative '../../spec_helper'
+require "spec_helper"
 
 describe "issues/index" do
   let(:project) { Project.find(5) }

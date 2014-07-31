@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require "spec_helper"
 
 describe WatchProjectController do
   fixtures :users, :roles, :projects, :projects_trackers, :members, :member_roles, :issues, :issue_statuses, :trackers, :enumerations, :custom_fields, :enabled_modules
