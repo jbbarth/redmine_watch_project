@@ -1,8 +1,11 @@
 require_relative '../../spec_helper'
 
 describe "issues/index" do
+  let(:project) { Project.find(1) }
+  let(:user) { User.find(1) }
+
   before do
-    User.current = User.find(1)
+    User.current = user
     assign(:query, stub_model(IssueQuery))
     assign(:issues, [])
     view.extend RoutesHelper
@@ -16,13 +19,15 @@ describe "issues/index" do
   end
 
   it "contains an 'unwatch' link for the project if watching" do
-    assign(:project, stub_model(Project, :watcher_users => []))
+    project.stub(:watcher_users => [])
+    assign(:project, project)
     render
     assert_select "div.contextual>a.icon-fav-off", :text => "Watch"
   end
 
   it "contains an 'watch' link for the project if not watching" do
-    assign(:project, stub_model(Project, :watcher_users => [User.current]))
+    project.stub(:watcher_users => [User.current])
+    assign(:project, project)
     render
     assert_select "div.contextual>a.icon-fav", :text => "Unwatch"
   end
