@@ -5,7 +5,7 @@ Redmine::Plugin.register :redmine_watch_project do
   version '0.0.1'
   url 'https://github.com/jbbarth/redmine_watch_project'
   author_url 'jeanbaptiste.barth@gmail.com'
-  requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.2'
+  requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.2' if Rails.env.test?
   requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
 end
 
