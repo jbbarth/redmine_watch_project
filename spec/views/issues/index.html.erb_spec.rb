@@ -1,12 +1,12 @@
 require "spec_helper"
 
-describe "issues/index" do
+describe "issues/index", type: :view do
   let(:project) { Project.find(5) }
   let(:user) { User.find(1) } #member of project(5)
 
   before do
     User.current = user
-    assign(:query, stub_model(IssueQuery))
+    assign(:query, IssueQuery.new)
     assign(:issues, [])
     view.extend RoutesHelper
     view.extend QueriesHelper
