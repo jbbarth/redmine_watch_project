@@ -19,14 +19,14 @@ describe "issues/index", type: :view do
   end
 
   it "contains an 'unwatch' link for the project if watching" do
-    project.stub(:watcher_users => [])
+    allow(project).to receive(:watcher_users).and_return([])
     assign(:project, project)
     render
     assert_select "div.contextual>a.icon-fav-off", :text => "Watch"
   end
 
   it "contains an 'watch' link for the project if not watching" do
-    project.stub(:watcher_users => [User.current])
+    allow(project).to receive(:watcher_users).and_return([User.current])
     assign(:project, project)
     render
     assert_select "div.contextual>a.icon-fav", :text => "Unwatch"

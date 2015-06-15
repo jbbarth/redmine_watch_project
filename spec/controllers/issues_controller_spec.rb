@@ -11,7 +11,7 @@ describe WatchProjectController do
     it "refuses access to non-members" do
       session[:user_id] = 1
       post :watch, :project_id => 2
-      response.status.should == 403
+      expect(response.status).to eq 403
     end
   end
 
@@ -30,7 +30,7 @@ describe WatchProjectController do
         }.to change {
           Watcher.where(:watchable_type => "Project").count
         }.by 1
-        response.should redirect_to(project_issues_path(project))
+        expect(response).to redirect_to(project_issues_path(project))
       end
 
       it "watches directly all (open) issues in the project" do
@@ -51,7 +51,7 @@ describe WatchProjectController do
         }.to change {
           Watcher.where(:watchable_type => "Project").count
         }.by -1
-        response.should redirect_to(project_issues_path(project))
+        expect(response).to redirect_to(project_issues_path(project))
       end
 
       it "unwatches directly all issues in the project" do
