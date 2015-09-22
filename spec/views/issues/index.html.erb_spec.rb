@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "issues/index", type: :view do
+describe "issues/index.html.erb", type: :view do
   let(:project) { Project.find(5) }
   let(:user) { User.find(1) } #member of project(5)
 
