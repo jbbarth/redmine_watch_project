@@ -10,6 +10,6 @@ Redmine::Plugin.register :redmine_watch_project do
 end
 
 Rails.application.config.to_prepare do
-  require_dependency 'redmine_watch_project/issue_patch'
+  require_dependency 'redmine_watch_project/issue_patch' unless Rails.env.test?
   require_dependency 'redmine_watch_project/project_patch'
 end
