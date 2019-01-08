@@ -10,7 +10,7 @@ describe WatchProjectController do
   context "unauthorized" do
     it "refuses access to non-members" do
       session[:user_id] = 1
-      post :watch, :project_id => 2
+      post :watch, params: {:project_id => 2}
       expect(response.status).to eq 403
     end
   end
@@ -26,7 +26,7 @@ describe WatchProjectController do
     describe "POST watch" do
       it "adds current user to project's watchers" do
         expect {
-          post :watch, :project_id => project.id
+          post :watch, params: {:project_id => project.id}
         }.to change {
           Watcher.where(:watchable_type => "Project").count
         }.by 1
@@ -35,7 +35,7 @@ describe WatchProjectController do
 
       it "watches directly all (open) issues in the project" do
         expect {
-          post :watch, :project_id => project.id
+          post :watch, params: {:project_id => project.id}
         }.to change {
           Watcher.where(:watchable_type => "Issue").count
         }.by project.issues.open.count
@@ -47,7 +47,7 @@ describe WatchProjectController do
         project.watcher_users << user
         project.save!
         expect {
-          delete :unwatch, :project_id => project.id
+          delete :unwatch, params: {:project_id => project.id}
         }.to change {
           Watcher.where(:watchable_type => "Project").count
         }.by -1
@@ -59,7 +59,7 @@ describe WatchProjectController do
           Watcher.create(:watchable_type => "Issue", :watchable_id => issue.id, :user_id => 1)
         end
         expect {
-          delete :unwatch, :project_id => project.id
+          delete :unwatch, params: {:project_id => project.id}
         }.to change {
           Watcher.where(:watchable_type => "Issue").count
         }.by -project.issues.count

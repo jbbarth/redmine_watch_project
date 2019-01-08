@@ -1,6 +1,6 @@
 class WatchProjectController < ApplicationController
-  before_filter :find_project_by_project_id
-  before_filter :require_member
+  before_action :find_project_by_project_id
+  before_action :require_member
 
   def watch
     #watch project
