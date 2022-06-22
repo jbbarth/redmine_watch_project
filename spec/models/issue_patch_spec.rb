@@ -2,7 +2,8 @@ require "spec_helper"
 require_dependency 'redmine_watch_project/issue_patch'
 
 describe Issue do
-  fixtures :users, :roles, :projects, :projects_trackers, :members, :member_roles, :issues, :issue_statuses, :trackers, :enumerations, :custom_fields, :enabled_modules
+  fixtures :users, :roles, :projects, :projects_trackers, :members, :member_roles, :issues, :issue_statuses,
+           :trackers, :enumerations, :custom_fields, :enabled_modules, :issue_categories
 
   it "adds project watchers as watchers to new issues" do
     user = User.find(2)
