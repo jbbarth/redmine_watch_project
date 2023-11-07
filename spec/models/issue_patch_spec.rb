@@ -1,5 +1,5 @@
 require "spec_helper"
-require_dependency 'redmine_watch_project/issue_patch'
+require_relative '../../lib/redmine_watch_project/issue_patch'
 
 describe Issue do
   fixtures :users, :roles, :projects, :projects_trackers, :members, :member_roles, :issues, :issue_statuses,

@@ -9,7 +9,9 @@ Redmine::Plugin.register :redmine_watch_project do
   requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
 end
 
-Rails.application.config.to_prepare do
-  require_dependency 'redmine_watch_project/issue_patch' unless Rails.env.test?
-  require_dependency 'redmine_watch_project/project_patch'
+class ModelHook < Redmine::Hook::Listener
+  def after_plugins_loaded(_context = {})
+    require_relative 'lib/redmine_watch_project/issue_patch' unless Rails.env.test?
+    require_relative 'lib/redmine_watch_project/project_patch'
+  end
 end
