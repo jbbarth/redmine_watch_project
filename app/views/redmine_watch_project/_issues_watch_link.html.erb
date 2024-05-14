@@ -1,4 +1,4 @@
-<% if @project && User.current.member_of?(@project) %>
+<% if @project && (User.current.member_of?(@project) || @project.watcher_users.include?(User.current)) %>
   <% if @project.watcher_users.include? User.current %>
     <%= link_to l(:button_unwatch), unwatch_project_path(@project), :method => :delete, :class => "icon icon-fav" %>
   <% else %>

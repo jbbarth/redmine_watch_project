@@ -1,6 +1,6 @@
 class WatchProjectController < ApplicationController
   before_action :find_project_by_project_id
-  before_action :require_member
+  before_action :require_member_or_watcher
 
   def watch
     #watch project
@@ -32,11 +32,13 @@ class WatchProjectController < ApplicationController
   end
 
   private
-  def require_member
-    if !User.current.member_of?(@project)
+
+  def require_member_or_watcher
+    if User.current.member_of?(@project) || @project.watcher_users.include?(User.current)
+      true
+    else
       render_403
-      return false
+      false
     end
-    true
   end
 end
