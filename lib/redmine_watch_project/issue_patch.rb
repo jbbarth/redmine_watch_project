@@ -11,7 +11,7 @@ module RedmineWatchProject
       # exclude locked users and members that can't view all issues
       project.watcher_users.active.each do |user|
         if user.roles_for_project(project).any? { |role| role.allowed_to?(:view_issues) && role.issues_visibility != 'own' }
-          watcher_users << user
+          self.watcher_users |= [user]
         end
       end
     end
