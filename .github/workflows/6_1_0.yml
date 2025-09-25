@@ -1,8 +1,8 @@
-name: Tests master
+name: Tests 6.1.0
 
 env:
   PLUGIN_NAME: redmine_watch_project
-  REDMINE_VERSION: master
+  REDMINE_VERSION: 6.1.0
   RAILS_ENV: test
 
 on:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['3.4']
+        ruby: [ '3.4' ]
         db: ['postgres']
       fail-fast: false
 
@@ -48,7 +48,7 @@ jobs:
 
       - name: Install package dependencies
         run: >
-          sudo apt-get install --yes --quiet
+          sudo apt-get update && sudo apt-get install --yes --quiet
           build-essential
           cmake
           libicu-dev
