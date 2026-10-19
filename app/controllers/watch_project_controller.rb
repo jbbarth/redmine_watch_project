@@ -7,13 +7,12 @@ class WatchProjectController < ApplicationController
     @project.watcher_users << User.current
     @project.save
     #watch all open issues on project
-    issue_ids = @project.issues.open.map(&:id)
-    already_watched = Watcher.where(:watchable_type => "Issue", :watchable_id => issue_ids, :user_id => User.current.id).pluck(:id)
-    (issue_ids - already_watched).each do |id|
-      Watcher.create(:watchable_type => "Issue",
-                     :watchable_id   => id,
-                     :user_id        => User.current.id)
+    issue_ids = @project.issues.open.pluck(:id)
+    already_watched = Watcher.where(:watchable_type => "Issue", :watchable_id => issue_ids, :user_id => User.current.id).pluck(:watchable_id)
+    new_watchers = (issue_ids - already_watched).map do |id|
+      { :watchable_type => "Issue", :watchable_id => id, :user_id => User.current.id }
     end
+    Watcher.insert_all(new_watchers) if new_watchers.any?
     #redirect
     redirect_back_or_default project_issues_path(@project)
   end

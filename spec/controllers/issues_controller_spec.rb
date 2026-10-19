@@ -40,6 +40,17 @@ describe WatchProjectController do
           Watcher.where(:watchable_type => "Issue").count
         }.by project.issues.open.count
       end
+
+      it "does not duplicate watchers on issues already watched" do
+        watched_issue = project.issues.open.first
+        Watcher.create!(:watchable => watched_issue, :user => user)
+        expect {
+          post :watch, params: {:project_id => project.id}
+        }.to change {
+          Watcher.where(:watchable_type => "Issue").count
+        }.by project.issues.open.count - 1
+        expect(Watcher.where(:watchable => watched_issue, :user_id => user.id).count).to eq 1
+      end
     end
 
     describe "DELETE unwatch" do
